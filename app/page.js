@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { supabase } from "../lib/supabaseClient";
+import AdSenseSlot from "./components/AdSenseSlot";
 
 const EMOJIS = ["😂", "😢", "❤️", "😮", "😡"];
 const VIEWED_KEY = "nightjar_viewed_secrets";
@@ -547,46 +548,22 @@ export default function Home() {
 
           {error && !secret && <p className="status-text error">{error}</p>}
 
-          {/* 【収益化】匿名アプリの世界観に最適化したプレミアムアフィリエイトカード */}
+          {/*
+            Feed rotation ad slot. The A8.net affiliate card that was here
+            required a Japanese bank account for payout, which isn't usable
+            right now — replaced with an AdSense slot instead, since AdSense
+            supports payout to a Thai bank account.
+            TODO: replace "YOUR_AD_SLOT_ID_FEED" with the real ad unit slot
+            id once your AdSense review is approved and you've created a
+            dedicated ad unit for this placement.
+          */}
           {secret && isAdCard && (
             <div
               key={secret.id}
-              className={`secret-card ad-card ${transitioning ? "hiding" : ""}`}
-              style={{ borderColor: "rgba(234, 179, 8, 0.3)" }}
+              className={`ad-card ${transitioning ? "hiding" : ""}`}
             >
-              <div className="card-badges">
-                <span className="badge" style={{ backgroundColor: "rgba(234, 179, 8, 0.15)", color: "#eab308" }}>
-                  SPONSOR / 暇つぶし
-                </span>
-              </div>
-              
-              <p className="secret-text" style={{ fontSize: "1.1rem", fontWeight: "500" }}>
-                【深夜の暇つぶしに】今だけ無料で読める！SNSでバズり散らかした超人気コミックが全巻開放中。他人の秘密より刺激的な裏側、覗いてみる？
-              </p>
-              
-              <div className="secret-meta" style={{ marginTop: "1.5rem" }}>
-                {/* A8.netなどで取得したあなた専用のアフィリエイトURLへ差し替えてください */}
-                <a 
-                  href="https://px.a8.net/svt/ejp?a8mat=XXXXX" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="next-btn"
-                  style={{ 
-                    display: "block", 
-                    width: "100%", 
-                    textAlign: "center", 
-                    backgroundColor: "#eab308", 
-                    color: "#0a0a0a", 
-                    fontWeight: "700",
-                    borderRadius: "0.75rem",
-                    padding: "0.85rem 0",
-                    boxShadow: "0 10px 15px -3px rgba(234, 179, 8, 0.2)",
-                    textDecoration: "none"
-                  }}
-                >
-                  今すぐ無料で読む →
-                </a>
-              </div>
+              <span className="ad-eyebrow">Sponsored</span>
+              <AdSenseSlot slot="YOUR_AD_SLOT_ID_FEED" className="feed-ad-slot" />
             </div>
           )}
 

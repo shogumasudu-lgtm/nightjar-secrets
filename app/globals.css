@@ -103,6 +103,13 @@ main {
   padding: 1.5rem 1rem 2rem;
 }
 
+.adsense-banner {
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
 .site-footer-copy {
   font-family: var(--font-mono), monospace;
   font-size: 0.7rem;
@@ -270,6 +277,13 @@ main {
   font-size: 0.72rem;
   letter-spacing: 0.03em;
   padding: 1rem;
+}
+
+.feed-ad-slot {
+  width: 100%;
+  min-height: 220px;
+  border: 1px dashed rgba(199, 202, 219, 0.22);
+  border-radius: 6px;
 }
 
 .report-btn {
