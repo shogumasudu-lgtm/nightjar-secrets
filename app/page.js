@@ -328,6 +328,23 @@ export default function Home() {
     toastTimer.current = setTimeout(() => setToast(null), 2200);
   };
 
+  // Re-saves the session snapshot after the *content* of the current
+  // secret changes (a reaction, a view-count bump) without touching the
+  // cooldown that's already in progress — so a stale reaction/view count
+  // never resurfaces after navigating away and back.
+  const refreshSessionSnapshot = useCallback(
+    (updatedSecret) => {
+      const existing = readAllSession();
+      writeAllSession({
+        secret: updatedSecret,
+        isAdCard,
+        viewCount,
+        cooldownEndsAt: existing?.cooldownEndsAt ?? Date.now(),
+      });
+    },
+    [isAdCard, viewCount]
+  );
+
   const loadRandomSecret = useCallback(async () => {
     const excludeIds = readIds(VIEWED_KEY);
 
@@ -407,9 +424,15 @@ export default function Home() {
     if (activeTab !== "all") return;
 
     const snapshot = readAllSession();
-    const remaining = remainingAllCooldownSeconds();
 
-    if (snapshot && remaining > 0) {
+    // Restoring the previously-shown secret should NOT depend on whether
+    // the 5-second "next button" pacing cooldown has expired — those are
+    // two unrelated things. A snapshot existing at all means "this is what
+    // was on screen last", and should always be restored on return,
+    // regardless of how long the visitor was away. `remaining` below only
+    // controls whether the next-button is immediately clickable again.
+    if (snapshot) {
+      const remaining = remainingAllCooldownSeconds();
       setSecret(snapshot.secret);
       setIsAdCard(snapshot.isAdCard);
       setViewCount(snapshot.viewCount);
@@ -453,9 +476,9 @@ export default function Home() {
 
     addId(VIEWED_KEY, secret.id);
     supabase.rpc("increment_view", { secret_id: secret.id }).then(() => {
-      setSecret((prev) =>
-        prev && prev.id === secret.id ? { ...prev, views: prev.views + 1 } : prev
-      );
+      const updated = { ...secret, views: secret.views + 1 };
+      setSecret(updated);
+      refreshSessionSnapshot(updated);
     });
   }, [secret, isAdCard]);
 
@@ -463,10 +486,12 @@ export default function Home() {
     if (!secret || isAdCard || reacted) return;
     setReacted(true);
     addId(REACTED_KEY, secret.id);
-    setSecret((prev) => ({
-      ...prev,
-      reactions: { ...prev.reactions, [emoji]: (prev.reactions[emoji] || 0) + 1 },
-    }));
+    const updated = {
+      ...secret,
+      reactions: { ...secret.reactions, [emoji]: (secret.reactions[emoji] || 0) + 1 },
+    };
+    setSecret(updated);
+    refreshSessionSnapshot(updated);
     await supabase.rpc("add_reaction", { secret_id: secret.id, emoji_key: emoji });
   };
 
