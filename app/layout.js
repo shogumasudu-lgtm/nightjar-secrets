@@ -25,18 +25,18 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${fraunces.variable} ${plexMono.variable}`}>
       <body>
         <div className="sky">
-          <header className="site-header">
-            <a href="/" className="wordmark">
-              night<em>jar</em>
-            </a>
-            
-              <nav className="site-nav">
-  <a href="/">read</a>
-  <a href="/post">Confess</a>
-  <a href="https://x.com/nightjar67rydn" target="_blank">My X account</a>
-</nav>
-            
-          </header>
+ <header className="site-header">
+  <a href="/" className="wordmark" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+    <img src="/logo.png" alt="Nightjar Logo" style={{ height: '30px' }} />
+    <span>night<em>jar</em></span>
+  </a>
+
+  <nav className="site-nav">
+    <a href="/">read</a>
+    <a href="/post">Confess</a>
+    <a href="https://x.com/nightjar67rydn" target="_blank">My X account</a>
+  </nav>
+</header>
           <main>{children}</main>
           <footer className="site-footer">
             <Link
