@@ -24,14 +24,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${plexMono.variable}`}>
-        <head>
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598821881505606"
-          crossOrigin="anonymous"
-          strategy="afterInteractive"
-        />
-      </head>
+   export const metadata = {
+  title: "Nightjar - secrets from strangers",
+  description: "Release a secret into the dark. Read what strangers have let go of.",
+  other: {
+    "google-adsense-account": "ca-pub-4598821881505606",
+  },
+};
       <body>
         <div className="sky">
           <header className="site-header">
