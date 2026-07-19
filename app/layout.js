@@ -29,10 +29,13 @@ export default function RootLayout({ children }) {
             <a href="/" className="wordmark">
               night<em>jar</em>
             </a>
-            <nav className="site-nav">
-              <a href="/">read</a>
-              <a href="/post">confess</a>
-            </nav>
+            
+              <nav className="site-nav">
+  <a href="/">read</a>
+  <a href="/post">告白する</a>
+  <a href="https://x.com/nightjar67rydn" target="_blank">X</a>
+</nav>
+            
           </header>
           <main>{children}</main>
           <footer className="site-footer">
