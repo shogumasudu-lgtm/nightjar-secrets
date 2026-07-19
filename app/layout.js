@@ -1,5 +1,6 @@
 import { Fraunces, IBM_Plex_Mono } from "next/font/google";
 import Link from "next/link";
+import Script from "next/script";
 import "./globals.css";
  
 const fraunces = Fraunces({
@@ -27,6 +28,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${plexMono.variable}`}>
       <body className="sky">
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4598821881505606"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <header className="site-header">
           <a href="/" className="wordmark">
             night<em>jar</em>
