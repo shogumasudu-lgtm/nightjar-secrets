@@ -32,8 +32,8 @@ export default function RootLayout({ children }) {
             
               <nav className="site-nav">
   <a href="/">read</a>
-  <a href="/post">告白する</a>
-  <a href="https://x.com/nightjar67rydn" target="_blank">X</a>
+  <a href="/post">Confess</a>
+  <a href="https://x.com/nightjar67rydn" target="_blank">My X account</a>
 </nav>
             
           </header>
