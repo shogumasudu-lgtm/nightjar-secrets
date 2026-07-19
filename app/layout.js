@@ -1,20 +1,20 @@
 import { Fraunces, IBM_Plex_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
-
+ 
 const fraunces = Fraunces({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
   style: ["normal", "italic"],
   variable: "--font-display",
 });
-
+ 
 const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-mono",
 });
-
+ 
 export const metadata = {
   title: "Nightjar — secrets from strangers",
   description: "Release a secret into the dark. Read what strangers have let go of.",
@@ -22,7 +22,7 @@ export const metadata = {
     "google-adsense-account": "ca-pub-4598821881505606",
   },
 };
-
+ 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${plexMono.variable}`}>
@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
           <nav className="site-nav">
             <a href="/">read</a>
             <a href="/post">Confess</a>
-            <a href="https://x.com/nightjar67rydn" target="_blank">My X account</a>
+            <a href="https://x.com/nightjar67rydn" target="_blank" rel="noopener noreferrer">My X account</a>
           </nav>
         </header>
         <main>{children}</main>
